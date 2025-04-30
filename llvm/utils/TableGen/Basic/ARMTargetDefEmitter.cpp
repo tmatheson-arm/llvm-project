@@ -355,6 +355,19 @@ static void emitARMTargetDef(const RecordKeeper &RK, raw_ostream &OS) {
   OS << "#undef EMIT_CPU_INFO\n"
      << "#endif // EMIT_CPU_INFO\n"
      << "\n";
+
+  // Sort the extensions alphabetically, so they don't appear in tablegen order.
+  std::vector<const Record *> SortedMArchExtensions = RK.getAllDerivedDefinitions("ExtensionWithMArch");
+  sort(SortedMArchExtensions, Alphabetical);
+
+  // Emit clang AArch64TargetInfo member fields
+  OS << "#ifdef EMIT_CLANG_TARGETINFO_FIELDS\n";
+  for (const Record *Rec : SortedMArchExtensions) {
+    const auto FieldName = Rec->getValueAsString("FieldName");
+    OS << "  bool " << FieldName << " = false;\n";
+  }
+  OS << "#undef EMIT_CLANG_TARGETINFO_FIELDS\n"
+     << "#endif // EMIT_CLANG_TARGETINFO_FIELDS\n";
 }
 
 static TableGen::Emitter::Opt

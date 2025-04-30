@@ -143,7 +143,7 @@ void AArch64TargetInfo::setArchFeatures() {
     }
     if (ArchInfo->Version.getMinor() >= 6u) {
       HasBFloat16 = true;
-      HasMatMul = true;
+      HasMatMulInt8 = true;
     }
     if (ArchInfo->Version.getMinor() >= 5u) {
       HasAlternativeNZCV = true;
@@ -176,7 +176,7 @@ void AArch64TargetInfo::setArchFeatures() {
     }
     if (ArchInfo->Version.getMinor() >= 1u) {
       HasBFloat16 = true;
-      HasMatMul = true;
+      HasMatMulInt8 = true;
     }
     FPU |= SveMode;
     HasSVE2 = true;
@@ -654,7 +654,7 @@ void AArch64TargetInfo::getTargetDefines(const LangOptions &Opts,
   if (HasTME)
     Builder.defineMacro("__ARM_FEATURE_TME", "1");
 
-  if (HasMatMul)
+  if (HasMatMulInt8)
     Builder.defineMacro("__ARM_FEATURE_MATMUL_INT8", "1");
 
   if (HasLSE)
@@ -671,13 +671,13 @@ void AArch64TargetInfo::getTargetDefines(const LangOptions &Opts,
     Builder.defineMacro("__ARM_FEATURE_SVE_BF16", "1");
   }
 
-  if ((FPU & SveMode) && HasMatmulFP64)
+  if ((FPU & SveMode) && HasMatMulFP64)
     Builder.defineMacro("__ARM_FEATURE_SVE_MATMUL_FP64", "1");
 
-  if ((FPU & SveMode) && HasMatmulFP32)
+  if ((FPU & SveMode) && HasMatMulFP32)
     Builder.defineMacro("__ARM_FEATURE_SVE_MATMUL_FP32", "1");
 
-  if ((FPU & SveMode) && HasMatMul)
+  if ((FPU & SveMode) && HasMatMulInt8)
     Builder.defineMacro("__ARM_FEATURE_SVE_MATMUL_INT8", "1");
 
   if ((FPU & NeonMode) && HasFP16FML)
@@ -833,7 +833,7 @@ bool AArch64TargetInfo::hasFeature(StringRef Feature) const {
       .Case("fp", FPU & FPUMode)
       .Cases("neon", "simd", FPU & NeonMode)
       .Case("jscvt", HasJSCVT)
-      .Case("fcma", HasFCMA)
+      .Case("fcma", HasComplxNum)
       .Case("rng", HasRandGen)
       .Case("flagm", HasFlagM)
       .Case("flagm2", HasAlternativeNZCV)
@@ -852,12 +852,12 @@ bool AArch64TargetInfo::hasFeature(StringRef Feature) const {
       .Case("dpb2", HasCCDP)
       .Case("rcpc", HasRCPC)
       .Case("frintts", HasFRInt3264)
-      .Case("i8mm", HasMatMul)
+      .Case("i8mm", HasMatMulInt8)
       .Case("bf16", HasBFloat16)
       .Case("sve", FPU & SveMode)
       .Case("sve-b16b16", HasSVEB16B16)
-      .Case("f32mm", FPU & SveMode && HasMatmulFP32)
-      .Case("f64mm", FPU & SveMode && HasMatmulFP64)
+      .Case("f32mm", FPU & SveMode && HasMatMulFP32)
+      .Case("f64mm", FPU & SveMode && HasMatMulFP64)
       .Case("sve2", FPU & SveMode && HasSVE2)
       .Case("sve-aes", HasSVEAES)
       .Case("sve-bitperm", FPU & HasSVEBitPerm)
@@ -929,7 +929,7 @@ bool AArch64TargetInfo::handleTargetFeatures(std::vector<std::string> &Features,
       FPU |= NeonMode;
     }
     if (Feature == "+fcma") {
-      HasFCMA = true;
+      HasComplxNum = true;
       FPU |= NeonMode;
     }
 
@@ -981,13 +981,13 @@ bool AArch64TargetInfo::handleTargetFeatures(std::vector<std::string> &Features,
       FPU |= NeonMode;
       FPU |= SveMode;
       HasFullFP16 = true;
-      HasMatmulFP32 = true;
+      HasMatMulFP32 = true;
     }
     if (Feature == "+f64mm") {
       FPU |= NeonMode;
       FPU |= SveMode;
       HasFullFP16 = true;
-      HasMatmulFP64 = true;
+      HasMatMulFP64 = true;
     }
     if (Feature == "+sme") {
       HasSME = true;
@@ -1163,7 +1163,7 @@ bool AArch64TargetInfo::handleTargetFeatures(std::vector<std::string> &Features,
     if (Feature == "+pauth")
       HasPAuth = true;
     if (Feature == "+i8mm")
-      HasMatMul = true;
+      HasMatMulInt8 = true;
     if (Feature == "+bf16")
       HasBFloat16 = true;
     if (Feature == "+lse")

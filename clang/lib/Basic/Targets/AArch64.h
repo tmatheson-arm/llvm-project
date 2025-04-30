@@ -64,63 +64,20 @@ class LLVM_LIBRARY_VISIBILITY AArch64TargetInfo : public TargetInfo {
   };
 
   unsigned FPU = FPUMode;
-  bool HasCRC = false;
-  bool HasAES = false;
-  bool HasSHA2 = false;
-  bool HasSHA3 = false;
-  bool HasSM4 = false;
-  bool HasFullFP16 = false;
-  bool HasDotProd = false;
-  bool HasFP16FML = false;
-  bool HasMTE = false;
-  bool HasTME = false;
-  bool HasPAuth = false;
-  bool HasLS64 = false;
-  bool HasRandGen = false;
-  bool HasMatMul = false;
-  bool HasBFloat16 = false;
-  bool HasSVE2 = false;
-  bool HasSVE2p1 = false;
-  bool HasSVEAES = false;
-  bool HasSVE2SHA3 = false;
-  bool HasSVE2SM4 = false;
-  bool HasSVEB16B16 = false;
-  bool HasSVEBitPerm = false;
-  bool HasMatmulFP64 = false;
-  bool HasMatmulFP32 = false;
-  bool HasLSE = false;
-  bool HasFlagM = false;
-  bool HasAlternativeNZCV = false;
-  bool HasMOPS = false;
-  bool HasD128 = false;
-  bool HasRCPC = false;
-  bool HasRDM = false;
-  bool HasDIT = false;
-  bool HasCCPP = false;
-  bool HasCCDP = false;
-  bool HasFRInt3264 = false;
-  bool HasSME = false;
-  bool HasSME2 = false;
-  bool HasSMEF64F64 = false;
-  bool HasSMEI16I64 = false;
-  bool HasSMEF16F16 = false;
-  bool HasSMEB16B16 = false;
-  bool HasSME2p1 = false;
-  bool HasSB = false;
-  bool HasPredRes = false;
-  bool HasSSBS = false;
-  bool HasBTI = false;
-  bool HasWFxT = false;
-  bool HasJSCVT = false;
-  bool HasFCMA = false;
+  #define EMIT_CLANG_TARGETINFO_FIELDS
+  #include "llvm/TargetParser/AArch64TargetParserDef.inc"
+
+  // FIXME these seem hacky
   bool HasNoFP = false;
   bool HasNoNeon = false;
   bool HasNoSVE = false;
-  bool HasFMV = true;
-  bool HasGCS = false;
-  bool HasRCPC3 = false;
-  bool HasSMEFA64 = false;
-  bool HasPAuthLR = false;
+
+  // FIXME These do not have a march extension, but were added by FMV
+  bool HasFMV = false;
+  bool HasAlternativeNZCV = false;
+  bool HasCCDP = false;
+  bool HasCCPP = false;
+  bool HasFRInt3264 = false;
 
   const llvm::AArch64::ArchInfo *ArchInfo = &llvm::AArch64::ARMV8A;
 

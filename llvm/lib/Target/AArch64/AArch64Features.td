@@ -180,8 +180,8 @@ def FeatureRCPC : ExtensionWithMArch<"rcpc", "RCPC", "FEAT_LRCPC",
 def FeaturePAuth : ExtensionWithMArch<"pauth", "PAuth", "FEAT_PAuth",
   "Enable Armv8.3-A Pointer Authentication extension">;
 
-let ArchExtKindSpelling = "AEK_JSCVT", UserVisibleName = "jscvt" in
-def FeatureJS : ExtensionWithMArch<"jsconv", "JS", "FEAT_JSCVT",
+let UserVisibleName = "jscvt" in
+def FeatureJS : ExtensionWithMArch<"jsconv", "JSCVT", "FEAT_JSCVT",
   "Enable Armv8.3-A JavaScript FP conversion instructions",
   [FeatureFPARMv8]>;
 

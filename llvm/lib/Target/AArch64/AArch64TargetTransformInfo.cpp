@@ -2589,17 +2589,19 @@ instCombineSVEVectorMlaU(InstCombiner &IC, IntrinsicInst &II) {
   Value *MulOp0 = II.getArgOperand(2);
   Value *MulOp1 = II.getArgOperand(3);
 
+  if (isa<Constant>(MulOp0) && !isa<Constant>(MulOp1)) {
+    II.setArgOperand(2, MulOp1);
+    II.setArgOperand(3, MulOp0);
+    return &II;
+  }
+
   // For mla_u, inactive lanes are undefined, so it is valid to drop the
   // predicate when replacing mla_u(acc, x, 1) with add(acc, x) or
   // mla_u(acc, x, -1) with sub(acc, x).
   if (match(MulOp0, m_One()))
     return IC.replaceInstUsesWith(II, IC.Builder.CreateAdd(Acc, MulOp1));
-  if (match(MulOp1, m_One()))
-    return IC.replaceInstUsesWith(II, IC.Builder.CreateAdd(Acc, MulOp0));
   if (match(MulOp0, m_AllOnes()))
     return IC.replaceInstUsesWith(II, IC.Builder.CreateSub(Acc, MulOp1));
-  if (match(MulOp1, m_AllOnes()))
-    return IC.replaceInstUsesWith(II, IC.Builder.CreateSub(Acc, MulOp0));
 
   return std::nullopt;
 }

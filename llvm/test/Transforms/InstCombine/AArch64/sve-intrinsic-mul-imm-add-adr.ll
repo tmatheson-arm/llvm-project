@@ -122,7 +122,7 @@ define <vscale x 4 x i32> @svmul_u_i32_by_9_commuted(<vscale x 4 x i1> %pg, <vsc
 define <vscale x 4 x i32> @svmla_u_i32_by_2_commuted(<vscale x 4 x i1> %pg, <vscale x 4 x i32> %a, <vscale x 4 x i32> %x) {
 ; CHECK-LABEL: define <vscale x 4 x i32> @svmla_u_i32_by_2_commuted(
 ; CHECK-SAME: <vscale x 4 x i1> [[PG:%.*]], <vscale x 4 x i32> [[A:%.*]], <vscale x 4 x i32> [[X:%.*]]) {
-; CHECK-NEXT:    [[OUT:%.*]] = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> [[PG]], <vscale x 4 x i32> [[A]], <vscale x 4 x i32> splat (i32 2), <vscale x 4 x i32> [[X]])
+; CHECK-NEXT:    [[OUT:%.*]] = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> [[PG]], <vscale x 4 x i32> [[A]], <vscale x 4 x i32> [[X]], <vscale x 4 x i32> splat (i32 2))
 ; CHECK-NEXT:    ret <vscale x 4 x i32> [[OUT]]
 ;
   %out = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> %pg, <vscale x 4 x i32> %a, <vscale x 4 x i32> splat(i32 2), <vscale x 4 x i32> %x)
@@ -132,7 +132,7 @@ define <vscale x 4 x i32> @svmla_u_i32_by_2_commuted(<vscale x 4 x i1> %pg, <vsc
 define <vscale x 4 x i32> @svmla_u_i32_by_4_commuted(<vscale x 4 x i1> %pg, <vscale x 4 x i32> %a, <vscale x 4 x i32> %x) {
 ; CHECK-LABEL: define <vscale x 4 x i32> @svmla_u_i32_by_4_commuted(
 ; CHECK-SAME: <vscale x 4 x i1> [[PG:%.*]], <vscale x 4 x i32> [[A:%.*]], <vscale x 4 x i32> [[X:%.*]]) {
-; CHECK-NEXT:    [[OUT:%.*]] = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> [[PG]], <vscale x 4 x i32> [[A]], <vscale x 4 x i32> splat (i32 4), <vscale x 4 x i32> [[X]])
+; CHECK-NEXT:    [[OUT:%.*]] = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> [[PG]], <vscale x 4 x i32> [[A]], <vscale x 4 x i32> [[X]], <vscale x 4 x i32> splat (i32 4))
 ; CHECK-NEXT:    ret <vscale x 4 x i32> [[OUT]]
 ;
   %out = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> %pg, <vscale x 4 x i32> %a, <vscale x 4 x i32> splat(i32 4), <vscale x 4 x i32> %x)
@@ -142,7 +142,7 @@ define <vscale x 4 x i32> @svmla_u_i32_by_4_commuted(<vscale x 4 x i1> %pg, <vsc
 define <vscale x 4 x i32> @svmla_u_i32_by_8_commuted(<vscale x 4 x i1> %pg, <vscale x 4 x i32> %a, <vscale x 4 x i32> %x) {
 ; CHECK-LABEL: define <vscale x 4 x i32> @svmla_u_i32_by_8_commuted(
 ; CHECK-SAME: <vscale x 4 x i1> [[PG:%.*]], <vscale x 4 x i32> [[A:%.*]], <vscale x 4 x i32> [[X:%.*]]) {
-; CHECK-NEXT:    [[OUT:%.*]] = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> [[PG]], <vscale x 4 x i32> [[A]], <vscale x 4 x i32> splat (i32 8), <vscale x 4 x i32> [[X]])
+; CHECK-NEXT:    [[OUT:%.*]] = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> [[PG]], <vscale x 4 x i32> [[A]], <vscale x 4 x i32> [[X]], <vscale x 4 x i32> splat (i32 8))
 ; CHECK-NEXT:    ret <vscale x 4 x i32> [[OUT]]
 ;
   %out = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> %pg, <vscale x 4 x i32> %a, <vscale x 4 x i32> splat(i32 8), <vscale x 4 x i32> %x)

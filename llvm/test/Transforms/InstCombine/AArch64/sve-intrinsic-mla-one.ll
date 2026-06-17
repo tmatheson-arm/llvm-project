@@ -5,7 +5,7 @@ target triple = "aarch64-unknown-linux-gnu"
 
 define <vscale x 4 x i32> @mla_one_rhs_splat_true(<vscale x 4 x i32> %acc, <vscale x 4 x i32> %x) {
 ; CHECK-LABEL: @mla_one_rhs_splat_true(
-; CHECK-NEXT:    [[R:%.*]] = add <vscale x 4 x i32> [[ACC:%.*]], [[X:%.*]]
+; CHECK-NEXT:    [[R:%.*]] = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> splat (i1 true), <vscale x 4 x i32> [[ACC:%.*]], <vscale x 4 x i32> [[X:%.*]], <vscale x 4 x i32> splat (i32 1))
 ; CHECK-NEXT:    ret <vscale x 4 x i32> [[R]]
 ;
   %r = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.nxv4i32(<vscale x 4 x i1> splat (i1 true), <vscale x 4 x i32> %acc, <vscale x 4 x i32> %x, <vscale x 4 x i32> splat (i32 1))
@@ -14,7 +14,7 @@ define <vscale x 4 x i32> @mla_one_rhs_splat_true(<vscale x 4 x i32> %acc, <vsca
 
 define <vscale x 4 x i32> @mla_one_lhs_splat_true(<vscale x 4 x i32> %acc, <vscale x 4 x i32> %x) {
 ; CHECK-LABEL: @mla_one_lhs_splat_true(
-; CHECK-NEXT:    [[R:%.*]] = add <vscale x 4 x i32> [[ACC:%.*]], [[X:%.*]]
+; CHECK-NEXT:    [[R:%.*]] = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> splat (i1 true), <vscale x 4 x i32> [[ACC:%.*]], <vscale x 4 x i32> [[X:%.*]], <vscale x 4 x i32> splat (i32 1))
 ; CHECK-NEXT:    ret <vscale x 4 x i32> [[R]]
 ;
   %r = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.nxv4i32(<vscale x 4 x i1> splat (i1 true), <vscale x 4 x i32> %acc, <vscale x 4 x i32> splat (i32 1), <vscale x 4 x i32> %x)
@@ -23,7 +23,7 @@ define <vscale x 4 x i32> @mla_one_lhs_splat_true(<vscale x 4 x i32> %acc, <vsca
 
 define <vscale x 4 x i32> @mla_allones_rhs_splat_true(<vscale x 4 x i32> %acc, <vscale x 4 x i32> %x) {
 ; CHECK-LABEL: @mla_allones_rhs_splat_true(
-; CHECK-NEXT:    [[R:%.*]] = sub <vscale x 4 x i32> [[ACC:%.*]], [[X:%.*]]
+; CHECK-NEXT:    [[R:%.*]] = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> splat (i1 true), <vscale x 4 x i32> [[ACC:%.*]], <vscale x 4 x i32> [[X:%.*]], <vscale x 4 x i32> splat (i32 -1))
 ; CHECK-NEXT:    ret <vscale x 4 x i32> [[R]]
 ;
   %r = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.nxv4i32(<vscale x 4 x i1> splat (i1 true), <vscale x 4 x i32> %acc, <vscale x 4 x i32> %x, <vscale x 4 x i32> splat (i32 -1))
@@ -32,7 +32,7 @@ define <vscale x 4 x i32> @mla_allones_rhs_splat_true(<vscale x 4 x i32> %acc, <
 
 define <vscale x 4 x i32> @mla_allones_lhs_splat_true(<vscale x 4 x i32> %acc, <vscale x 4 x i32> %x) {
 ; CHECK-LABEL: @mla_allones_lhs_splat_true(
-; CHECK-NEXT:    [[R:%.*]] = sub <vscale x 4 x i32> [[ACC:%.*]], [[X:%.*]]
+; CHECK-NEXT:    [[R:%.*]] = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> splat (i1 true), <vscale x 4 x i32> [[ACC:%.*]], <vscale x 4 x i32> [[X:%.*]], <vscale x 4 x i32> splat (i32 -1))
 ; CHECK-NEXT:    ret <vscale x 4 x i32> [[R]]
 ;
   %r = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.nxv4i32(<vscale x 4 x i1> splat (i1 true), <vscale x 4 x i32> %acc, <vscale x 4 x i32> splat (i32 -1), <vscale x 4 x i32> %x)
@@ -41,7 +41,7 @@ define <vscale x 4 x i32> @mla_allones_lhs_splat_true(<vscale x 4 x i32> %acc, <
 
 define <vscale x 4 x i32> @mla_one_rhs_ptrue_all(<vscale x 4 x i32> %acc, <vscale x 4 x i32> %x) {
 ; CHECK-LABEL: @mla_one_rhs_ptrue_all(
-; CHECK-NEXT:    [[R:%.*]] = add <vscale x 4 x i32> [[ACC:%.*]], [[X:%.*]]
+; CHECK-NEXT:    [[R:%.*]] = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> splat (i1 true), <vscale x 4 x i32> [[ACC:%.*]], <vscale x 4 x i32> [[X:%.*]], <vscale x 4 x i32> splat (i32 1))
 ; CHECK-NEXT:    ret <vscale x 4 x i32> [[R]]
 ;
   %pg = call <vscale x 4 x i1> @llvm.aarch64.sve.ptrue.nxv4i1(i32 31)
@@ -80,7 +80,7 @@ define <vscale x 4 x i32> @mla_allones_rhs_unknown_predicate(<vscale x 4 x i1> %
 
 define <vscale x 4 x i32> @mla_u_one_rhs_unknown_predicate(<vscale x 4 x i1> %pg, <vscale x 4 x i32> %acc, <vscale x 4 x i32> %x) {
 ; CHECK-LABEL: @mla_u_one_rhs_unknown_predicate(
-; CHECK-NEXT:    [[R:%.*]] = add <vscale x 4 x i32> [[ACC:%.*]], [[X:%.*]]
+; CHECK-NEXT:    [[R:%.*]] = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> [[PG:%.*]], <vscale x 4 x i32> [[ACC:%.*]], <vscale x 4 x i32> [[X:%.*]], <vscale x 4 x i32> splat (i32 1))
 ; CHECK-NEXT:    ret <vscale x 4 x i32> [[R]]
 ;
   %r = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> %pg, <vscale x 4 x i32> %acc, <vscale x 4 x i32> %x, <vscale x 4 x i32> splat (i32 1))
@@ -89,7 +89,7 @@ define <vscale x 4 x i32> @mla_u_one_rhs_unknown_predicate(<vscale x 4 x i1> %pg
 
 define <vscale x 4 x i32> @mla_u_allones_rhs_unknown_predicate(<vscale x 4 x i1> %pg, <vscale x 4 x i32> %acc, <vscale x 4 x i32> %x) {
 ; CHECK-LABEL: @mla_u_allones_rhs_unknown_predicate(
-; CHECK-NEXT:    [[R:%.*]] = sub <vscale x 4 x i32> [[ACC:%.*]], [[X:%.*]]
+; CHECK-NEXT:    [[R:%.*]] = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> [[PG:%.*]], <vscale x 4 x i32> [[ACC:%.*]], <vscale x 4 x i32> [[X:%.*]], <vscale x 4 x i32> splat (i32 -1))
 ; CHECK-NEXT:    ret <vscale x 4 x i32> [[R]]
 ;
   %r = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> %pg, <vscale x 4 x i32> %acc, <vscale x 4 x i32> %x, <vscale x 4 x i32> splat (i32 -1))

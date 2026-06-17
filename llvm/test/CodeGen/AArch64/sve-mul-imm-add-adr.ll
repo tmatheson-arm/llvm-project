@@ -288,7 +288,8 @@ define <vscale x 4 x i32> @svmla_u_i32_by_8(<vscale x 4 x i1> %pg, <vscale x 4 x
 define <vscale x 4 x i32> @svmla_u_i32_by_2_commuted(<vscale x 4 x i1> %pg, <vscale x 4 x i32> %a, <vscale x 4 x i32> %x) {
 ; CHECK-LABEL: svmla_u_i32_by_2_commuted:
 ; CHECK:       // %bb.0:
-; CHECK-NEXT:    adr z0.s, [z0.s, z1.s, lsl #1]
+; CHECK-NEXT:    mov z2.s, #2 // =0x2
+; CHECK-NEXT:    mla z0.s, p0/m, z2.s, z1.s
 ; CHECK-NEXT:    ret
   %out = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> %pg, <vscale x 4 x i32> %a, <vscale x 4 x i32> splat(i32 2), <vscale x 4 x i32> %x)
   ret <vscale x 4 x i32> %out
@@ -297,7 +298,8 @@ define <vscale x 4 x i32> @svmla_u_i32_by_2_commuted(<vscale x 4 x i1> %pg, <vsc
 define <vscale x 4 x i32> @svmla_u_i32_by_4_commuted(<vscale x 4 x i1> %pg, <vscale x 4 x i32> %a, <vscale x 4 x i32> %x) {
 ; CHECK-LABEL: svmla_u_i32_by_4_commuted:
 ; CHECK:       // %bb.0:
-; CHECK-NEXT:    adr z0.s, [z0.s, z1.s, lsl #2]
+; CHECK-NEXT:    mov z2.s, #4 // =0x4
+; CHECK-NEXT:    mla z0.s, p0/m, z2.s, z1.s
 ; CHECK-NEXT:    ret
   %out = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> %pg, <vscale x 4 x i32> %a, <vscale x 4 x i32> splat(i32 4), <vscale x 4 x i32> %x)
   ret <vscale x 4 x i32> %out
@@ -306,7 +308,8 @@ define <vscale x 4 x i32> @svmla_u_i32_by_4_commuted(<vscale x 4 x i1> %pg, <vsc
 define <vscale x 4 x i32> @svmla_u_i32_by_8_commuted(<vscale x 4 x i1> %pg, <vscale x 4 x i32> %a, <vscale x 4 x i32> %x) {
 ; CHECK-LABEL: svmla_u_i32_by_8_commuted:
 ; CHECK:       // %bb.0:
-; CHECK-NEXT:    adr z0.s, [z0.s, z1.s, lsl #3]
+; CHECK-NEXT:    mov z2.s, #8 // =0x8
+; CHECK-NEXT:    mla z0.s, p0/m, z2.s, z1.s
 ; CHECK-NEXT:    ret
   %out = call <vscale x 4 x i32> @llvm.aarch64.sve.mla.u.nxv4i32(<vscale x 4 x i1> %pg, <vscale x 4 x i32> %a, <vscale x 4 x i32> splat(i32 8), <vscale x 4 x i32> %x)
   ret <vscale x 4 x i32> %out
